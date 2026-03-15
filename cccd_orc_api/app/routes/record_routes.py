@@ -1,3 +1,5 @@
+import json
+
 from flask import Blueprint, request, jsonify
 
 from app.models.record_model import CCCDRecord
@@ -78,6 +80,13 @@ def get_record_detail(record_id):
 
         })
 
+    fingerprint_detected = record.fingerprint_detected
+    try:
+        if fingerprint_detected:
+            fingerprint_detected = json.loads(fingerprint_detected)
+    except Exception:
+        # keep original if it's not valid JSON
+        pass
 
     return jsonify({
 
@@ -103,7 +112,7 @@ def get_record_detail(record_id):
 
             "qr_text": record.qr_text,
 
-            "fingerprint_detected": record.fingerprint_detected,
+            "fingerprint_detected": fingerprint_detected,
 
             "image_path": record.image_path
 

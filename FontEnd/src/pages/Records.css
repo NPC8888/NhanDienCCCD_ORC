@@ -1,92 +1,271 @@
+.records-page {
+  min-height: calc(100vh - 80px);
+  padding: 40px 24px 80px;
+  background: radial-gradient(circle at top, #1c2c5d 0%, #0d1228 70%);
+  color: #f3f4f6;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
 .records-container {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+}
+
+.records-header {
+  text-align: center;
+  padding: 30px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(18px);
+  margin-bottom: 32px;
 }
 
 .records-container h1 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 30px;
+  font-size: 2.5rem;
+  margin: 0 0 12px;
+  letter-spacing: 0.6px;
+}
+
+.records-subtitle {
+  margin: 0;
+  max-width: 600px;
+  line-height: 1.6;
+  color: rgba(243, 244, 246, 0.8);
+  margin: 0 auto;
+}
+
+.records-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 32px;
 }
 
 .storage-selector {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 30px;
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 22px;
+  padding: 24px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(18px);
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
-.storage-selector label {
-  display: block;
-  margin-bottom: 10px;
-  font-weight: 500;
+.selector-icon {
+  color: #64d5ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .storage-selector select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 16px;
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(243, 244, 246, 0.94);
+  font-size: 14px;
+  outline: none;
 }
 
-.records-list {
-  display: grid;
-  gap: 15px;
+.storage-selector select:focus {
+  border-color: rgba(102, 126, 234, 0.8);
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
 }
 
-.record-item {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+.search-filter-section {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.search-box, .sort-selector {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  padding: 12px 16px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.search-box svg, .sort-selector svg {
+  color: #64d5ff;
+  flex-shrink: 0;
+}
+
+.search-box input, .sort-selector select {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: rgba(243, 244, 246, 0.94);
+  font-size: 14px;
+  outline: none;
+}
+
+.search-box input::placeholder {
+  color: rgba(243, 244, 246, 0.6);
+}
+
+.sort-selector select {
+  background: transparent;
+  border: none;
+  color: rgba(243, 244, 246, 0.94);
+  cursor: pointer;
+}
+
+.records-results {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.results-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.record-info h3 {
-  margin: 0 0 10px 0;
-  color: #333;
+.results-header p {
+  color: rgba(243, 244, 246, 0.8);
+  margin: 0;
+  font-size: 14px;
 }
 
-.record-info p {
-  margin: 5px 0;
-  color: #666;
+.empty-state {
+  text-align: center;
+  padding: 80px 40px;
+  color: rgba(243, 244, 246, 0.7);
 }
 
-.record-actions {
-  display: flex;
-  gap: 10px;
+.empty-state svg {
+  color: rgba(100, 213, 255, 0.5);
+  margin-bottom: 24px;
 }
 
-.view-btn {
-  background: #007bff;
-  color: white;
-  text-decoration: none;
-  padding: 8px 16px;
-  border-radius: 5px;
-  transition: background 0.3s;
+.empty-state h3 {
+  color: rgba(243, 244, 246, 0.9);
+  margin-bottom: 12px;
 }
 
-.view-btn:hover {
-  background: #0056b3;
-}
-
-.error-message {
-  background: #f8d7da;
-  color: #721c24;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 20px;
-  border: 1px solid #f5c6cb;
+.empty-state p {
+  margin: 0;
+  font-size: 16px;
 }
 
 .loading {
   text-align: center;
-  padding: 40px;
-  font-size: 18px;
-  color: #666;
+  padding: 60px;
+  font-size: 1.2rem;
+  color: rgba(243, 244, 246, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(100, 213, 255, 0.3);
+  border-top: 3px solid #64d5ff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.records-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.record-item {
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 32px;
+  border-radius: 22px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(18px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.record-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 42px 90px rgba(0, 0, 0, 0.45);
+}
+
+.record-info h3 {
+  margin: 0 0 16px 0;
+  color: #f3f4f6;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.record-info p {
+  margin: 0 0 8px 0;
+  color: rgba(243, 244, 246, 0.78);
+  font-size: 0.9rem;
+}
+
+.record-info p strong {
+  color: rgba(243, 244, 246, 0.9);
+  font-weight: 600;
+}
+
+.record-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.view-btn {
+  background: linear-gradient(135deg, #64d5ff 0%, #8c59ff 100%);
+  color: #0b0f17;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 18px;
+  font-weight: 700;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.view-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+  text-decoration: none;
+  color: #0b0f17;
+}
+
+.error-message {
+  background: rgba(255, 71, 87, 0.2);
+  color: #ff6b7a;
+  padding: 16px;
+  border-radius: 14px;
+  margin-bottom: 24px;
+  border: 1px solid rgba(255, 71, 87, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.loading {
+  text-align: center;
+  padding: 60px;
+  font-size: 1.2rem;
+  color: rgba(243, 244, 246, 0.7);
 }

@@ -1,98 +1,250 @@
-.Home {
+.home-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 20px;
+  background: radial-gradient(circle at top, #1c2c5d 0%, #0d1228 70%);
+  color: #f3f4f6;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  padding: 40px 24px 80px;
+}
+
+.home-hero {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 36px;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto 60px;
+  padding: 38px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(22px);
+}
+
+.hero-text h1 {
+  font-size: 3.2rem;
+  margin: 0 0 16px;
+  letter-spacing: 0.6px;
+}
+
+.hero-text p {
+  margin: 0 0 28px;
+  color: rgba(243, 244, 246, 0.82);
+  max-width: 520px;
+  line-height: 1.6;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.hero-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 24px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #64d5ff 0%, #8c59ff 100%);
+  color: #0b0f17;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hero-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.hero-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 24px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(243, 244, 246, 0.88);
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hero-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.32);
+}
+
+.hero-graphic {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  display: grid;
+  place-items: center;
+}
+
+.hero-blob {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(100, 213, 255, 0.55), transparent 70%);
+  filter: blur(40px);
+  top: 20%;
+  left: 20%;
+}
+
+.hero-blob--secondary {
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle at 70% 40%, rgba(140, 89, 255, 0.5), transparent 70%);
+  top: 30%;
+  left: 45%;
+}
+
+.hero-illustration {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  display: grid;
+  place-items: center;
+  backdrop-filter: blur(20px);
+}
+
+.hero-icon {
+  font-size: 3.6rem;
+  opacity: 0.9;
 }
 
 .home-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 20px 40px;
-  border-radius: 10px;
-  margin-bottom: 30px;
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 24px 32px;
+  border-radius: 22px;
+  margin-bottom: 40px;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
 }
 
 .home-header h1 {
-  color: white;
+  color: #f3f4f6;
   margin: 0;
-  font-size: 2.5rem;
-  font-weight: 300;
+  font-size: 2.2rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
 }
 
 .user-info {
   display: flex;
   align-items: center;
-  gap: 20px;
-  color: white;
+  gap: 18px;
+  color: #f3f4f6;
 }
 
 .logout-btn {
-  background: #ff4757;
+  background: linear-gradient(135deg, #ff4757 0%, #ff3742 100%);
   color: white;
   border: none;
-  padding: 8px 16px;
-  border-radius: 5px;
+  padding: 10px 18px;
+  border-radius: 14px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-weight: 600;
 }
 
 .logout-btn:hover {
-  background: #ff3742;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(255, 71, 87, 0.4);
 }
 
 .home-content {
-  max-width: 1200px;
+  max-width: 1220px;
   margin: 0 auto;
 }
 
 .feature-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
 }
 
 .feature-card {
-  background: rgba(255, 255, 255, 0.95);
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 32px;
+  border-radius: 22px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(18px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .feature-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  transform: translateY(-6px);
+  box-shadow: 0 42px 90px rgba(0, 0, 0, 0.45);
+}
+
+.feature-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(100, 213, 255, 0.2), rgba(140, 89, 255, 0.2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: #64d5ff;
+  border: 1px solid rgba(100, 213, 255, 0.3);
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 42px 90px rgba(0, 0, 0, 0.45);
 }
 
 .feature-card h3 {
-  color: #333;
-  margin-bottom: 15px;
+  color: #f3f4f6;
+  margin-bottom: 16px;
   font-size: 1.5rem;
+  font-weight: 700;
 }
 
 .feature-card p {
-  color: #666;
-  margin-bottom: 20px;
-  line-height: 1.5;
+  color: rgba(243, 244, 246, 0.78);
+  margin-bottom: 24px;
+  line-height: 1.6;
 }
 
 .feature-link {
   display: inline-block;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(135deg, #64d5ff 0%, #8c59ff 100%);
+  color: #0b0f17;
   text-decoration: none;
   padding: 12px 24px;
-  border-radius: 25px;
-  transition: transform 0.3s;
-  font-weight: 500;
+  border-radius: 18px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-weight: 700;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
 }
 
 .feature-link:hover {
-  transform: scale(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
   text-decoration: none;
-  color: white;
+  color: #0b0f17;
 }
+
+

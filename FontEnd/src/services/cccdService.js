@@ -2,10 +2,11 @@ const API_BASE_URL = 'http://localhost:8000/api';
 
 export const cccdService = {
   // SCAN ENDPOINTS
-  async scanCCCD(imageFile, storageId) {
+  async scanCCCD(frontImageFile, backImageFile, storageId) {
     try {
       const formData = new FormData();
-      formData.append('image', imageFile);
+      formData.append('front_image', frontImageFile);
+      formData.append('back_image', backImageFile);
       formData.append('storage_id', storageId);
 
       const token = localStorage.getItem('access_token');

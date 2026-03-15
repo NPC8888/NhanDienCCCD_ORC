@@ -30,6 +30,7 @@ class CCCDRecord(db.Model):
 
     qr_text = db.Column(db.Text)
 
-    fingerprint_detected = db.Column(db.Boolean)
+    # Store one or more fingerprint crop image paths (YOLO may return multiple finger regions)
+    fingerprint_detected = db.Column(db.Text)
 
     image_path = db.Column(db.String(255))

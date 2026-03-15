@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { cccdService } from "../services/cccdService";
+import { Upload, FileImage, Loader2, CheckCircle, AlertCircle } from "lucide-react";
+import toast from "react-hot-toast";
 import "./Scan.css";
 
 function Scan() {
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFrontFile, setSelectedFrontFile] = useState(null);
+  const [selectedBackFile, setSelectedBackFile] = useState(null);
   const [selectedStorage, setSelectedStorage] = useState("");
   const [storages, setStorages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -22,24 +25,35 @@ function Scan() {
       setStorages(data);
     } catch (err) {
       console.error("Failed to load storages:", err);
+      toast.error("Không thể tải danh sách kho");
     }
   };
 
-  const handleFileSelect = (e) => {
+  const handleFrontFileSelect = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setSelectedFile(file);
+      setSelectedFrontFile(file);
+      setError("");
+    }
+  };
+
+  const handleBackFileSelect = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedBackFile(file);
       setError("");
     }
   };
 
   const handleScan = async () => {
-    if (!selectedFile) {
-      setError("Vui lòng chọn ảnh CCCD");
+    if (!selectedFrontFile || !selectedBackFile) {
+      setError("Vui lòng chọn ảnh mặt trước và mặt sau của CCCD");
+      toast.error("Vui lòng chọn ảnh mặt trước và mặt sau của CCCD");
       return;
     }
     if (!selectedStorage) {
       setError("Vui lòng chọn kho lưu trữ");
+      toast.error("Vui lòng chọn kho lưu trữ");
       return;
     }
 
@@ -47,10 +61,17 @@ function Scan() {
     setError("");
 
     try {
-      const result = await cccdService.scanCCCD(selectedFile, selectedStorage);
+      const result = await cccdService.scanCCCD(
+        selectedFrontFile,
+        selectedBackFile,
+        selectedStorage
+      );
       setScanResult(result);
+      toast.success("Quét CCCD thành công!");
+      navigate(`/record/${result.record_id}`);
     } catch (err) {
       setError(err.message || "Quét CCCD thất bại");
+      toast.error("Quét CCCD thất bại: " + (err.message || "Lỗi không xác định"));
     } finally {
       setLoading(false);
     }
@@ -63,11 +84,43 @@ function Scan() {
   };
 
   return (
-    <div className="scan-container">
-      <h1>Quét CCCD</h1>
+    <div className="scan-page">
+      <div className="scan-wrapper">
+        <header className="scan-header">
+        <div className="scan-header__text">
+          <h1>Quét CCCD</h1>
+          <p className="scan-subtitle">
+            Upload ảnh mặt trước & sau để hệ thống tự động nhận diện và lưu trữ
+            thông tin.
+          </p>
+        </div>
+        <div className="scan-header__graphic" aria-hidden="true">
+          <div className="graphic-card">
+            <div className="graphic-card__layer graphic-card__layer--top" />
+            <div className="graphic-card__layer graphic-card__layer--middle" />
+            <div className="graphic-card__layer graphic-card__layer--bottom" />
+            <div className="graphic-card__icon" aria-hidden="true">🛡️</div>
+          </div>
+        </div>
+      </header>
+
+      <div className="scan-steps">
+        <div className="step">
+          <div className="step-number">1</div>
+          <div className="step-label">Chọn kho</div>
+        </div>
+        <div className="step">
+          <div className="step-number">2</div>
+          <div className="step-label">Upload ảnh</div>
+        </div>
+        <div className="step">
+          <div className="step-number">3</div>
+          <div className="step-label">Xem kết quả</div>
+        </div>
+      </div>
 
       {!scanResult && (
-        <div className="scan-form">
+        <div className="scan-panel">
           {error && <div className="error-message">{error}</div>}
 
           <div className="form-group">
@@ -88,19 +141,39 @@ function Scan() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="image">Chọn ảnh CCCD:</label>
+            <label htmlFor="frontImage">Ảnh mặt trước:</label>
             <input
               type="file"
-              id="image"
+              id="frontImage"
               accept="image/*"
-              onChange={handleFileSelect}
+              onChange={handleFrontFileSelect}
               disabled={loading}
             />
-            {selectedFile && (
+            {selectedFrontFile && (
               <div className="file-preview">
                 <img
-                  src={URL.createObjectURL(selectedFile)}
-                  alt="Preview"
+                  src={URL.createObjectURL(selectedFrontFile)}
+                  alt="Front preview"
+                  className="preview-image"
+                />
+              </div>
+            )}
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="backImage">Ảnh mặt sau:</label>
+            <input
+              type="file"
+              id="backImage"
+              accept="image/*"
+              onChange={handleBackFileSelect}
+              disabled={loading}
+            />
+            {selectedBackFile && (
+              <div className="file-preview">
+                <img
+                  src={URL.createObjectURL(selectedBackFile)}
+                  alt="Back preview"
                   className="preview-image"
                 />
               </div>
@@ -109,10 +182,22 @@ function Scan() {
 
           <button
             onClick={handleScan}
-            disabled={loading || !selectedFile || !selectedStorage}
+            disabled={
+              loading || !selectedFrontFile || !selectedBackFile || !selectedStorage
+            }
             className="scan-btn"
           >
-            {loading ? "Đang quét..." : "Quét CCCD"}
+            {loading ? (
+              <>
+                <Loader2 size={18} className="loading-icon" />
+                Đang quét...
+              </>
+            ) : (
+              <>
+                <Upload size={18} />
+                Quét CCCD
+              </>
+            )}
           </button>
         </div>
       )}
@@ -143,7 +228,8 @@ function Scan() {
             <button
               onClick={() => {
                 setScanResult(null);
-                setSelectedFile(null);
+                setSelectedFrontFile(null);
+                setSelectedBackFile(null);
                 setSelectedStorage("");
               }}
               className="scan-again-btn"
@@ -153,6 +239,7 @@ function Scan() {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 }

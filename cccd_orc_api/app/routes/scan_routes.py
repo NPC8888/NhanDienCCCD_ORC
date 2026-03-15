@@ -1,3 +1,4 @@
+import json
 import os
 import uuid
 
@@ -14,6 +15,7 @@ from app.models.image_model import CCCDImage
 from app.models.field_raw_model import CCCDFieldRaw
 from app.models.user_model import db
 from app.services.text_utils import fix_date, normalize_text, read_qr, convert_date_mysql
+
 scan_bp = Blueprint("scan", __name__)
 
 UPLOAD_FOLDER = "uploads/images"
@@ -28,10 +30,12 @@ os.makedirs("uploads/crops", exist_ok=True)
 @scan_bp.route("/cccd", methods=["POST"])
 def scan_cccd():
 
-    if "image" not in request.files:
-        return jsonify({"error": "image required"}), 400
+    # Expect two images: front and back of the CCCD
+    front_image = request.files.get("front_image") or request.files.get("image")
+    back_image = request.files.get("back_image")
 
-    image = request.files["image"]
+    if not front_image or not back_image:
+        return jsonify({"error": "front_image and back_image are required"}), 400
 
     storage_id = request.form.get("storage_id")
 
@@ -40,28 +44,33 @@ def scan_cccd():
 
 
     # ======================================
-    # SAVE ORIGINAL IMAGE
+    # SAVE ORIGINAL IMAGES
     # ======================================
 
-    filename = str(uuid.uuid4()) + ".jpg"
+    front_filename = str(uuid.uuid4()) + ".jpg"
+    back_filename = str(uuid.uuid4()) + ".jpg"
 
-    image_path = os.path.join(UPLOAD_FOLDER, filename)
+    front_path = os.path.join(UPLOAD_FOLDER, front_filename)
+    back_path = os.path.join(UPLOAD_FOLDER, back_filename)
 
-    image.save(image_path)
-
+    front_image.save(front_path)
+    back_image.save(back_path)
 
 
     # ======================================
-    # RESIZE IMAGE TO 640
+    # RESIZE IMAGES TO 640
     # ======================================
-    image_path = resize_to_640(image_path)
+    front_path = resize_to_640(front_path)
+    back_path = resize_to_640(back_path)
 
 
     # ======================================
     # YOLO DETECT FIELDS
     # ======================================
 
-    detections = detect_fields(image_path)
+    detections = []
+    detections.extend(detect_fields(front_path))
+    detections.extend(detect_fields(back_path))
 
 
     field_results = {}
@@ -108,6 +117,21 @@ def scan_cccd():
         field_results[field_name]["image_path"].append(crop_path)
     for field in field_results:
         field_results[field]["text"] = " ".join(field_results[field]["text"])
+
+    # ======================================
+    # EXTRACT SPECIAL IMAGE PATHS (QR + FINGERPRINTS)
+    # ======================================
+
+    fingerprint_paths = []
+    for f_name, f_val in field_results.items():
+        if "finger" in f_name.lower():  # Match "finger_print" or "fingerprint"
+            fingerprint_paths.extend(f_val.get("image_path", []))
+
+    qr_image_paths = field_results.get("qr", {}).get("image_path", [])
+
+    fingerprint_detected = json.dumps(fingerprint_paths) if fingerprint_paths else None
+    qr_text = qr_image_paths[0] if qr_image_paths else None
+
     # ======================================
     # NORMALIZE DATA
     # ======================================
@@ -122,7 +146,6 @@ def scan_cccd():
     issue_date = field_results.get("issue_date", {}).get("text")
     expire_date = field_results.get("expire_date", {}).get("text")
     features = field_results.get("features", {}).get("text")
-    qr_text = field_results.get("qr", {}).get("text")
 
     dob = convert_date_mysql(dob)
     expire_date = convert_date_mysql(expire_date)
@@ -146,8 +169,10 @@ def scan_cccd():
         expire_date=expire_date,
         features=features,
         qr_text=qr_text,
+        fingerprint_detected=fingerprint_detected,
 
-        image_path=image_path
+        # Keep the front-side image for reference
+        image_path=front_path
 
     )
 

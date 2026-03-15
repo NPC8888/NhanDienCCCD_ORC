@@ -1,4 +1,6 @@
-from flask import Flask , jsonify
+import os
+
+from flask import Flask , jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
@@ -26,6 +28,13 @@ def create_app():
             "service": "CCCD OCR API",
             "message": "server is running"
         }), 200
+
+    # Serve uploaded images and crops
+    @app.route('/uploads/<path:filename>')
+    def serve_uploads(filename):
+        # uploads directory is at the project root, not inside app/
+        uploads_dir = os.path.abspath(os.path.join(app.root_path, '..', 'uploads'))
+        return send_from_directory(uploads_dir, filename)
 
     db.init_app(app)
 

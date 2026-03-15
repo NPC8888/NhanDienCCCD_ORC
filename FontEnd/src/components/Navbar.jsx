@@ -1,48 +1,51 @@
-import { Link } from "react-router-dom";
-import { authService } from "../services/authService";
+// tạo navbar đơn giản với react-router-dom
+
+import { Link, useLocation } from "react-router-dom";
+import { Home, Scan, Database, FileText, LogIn, UserPlus } from "lucide-react";
 import "./Navbar.css";
 
 function Navbar() {
-  const isAuthenticated = authService.isAuthenticated();
-  const user = authService.getUser();
+  const location = useLocation();
 
-  const handleLogout = () => {
-    authService.logout();
-    window.location.href = '/login';
-  };
+  const isActive = (path) => location.pathname === path;
 
   return (
     <nav className="navbar">
       <div className="logo">
-        <Link to="/">CCCD OCR</Link>
+        <Link to="/">
+          <span className="logo-icon">📷</span>
+          CCCD OCR
+        </Link>
       </div>
 
       <div className="menu">
-        <Link to="/">Trang chủ</Link>
-        {isAuthenticated && (
-          <>
-            <Link to="/scan">Quét CCCD</Link>
-            <Link to="/records">Records</Link>
-            <Link to="/search">Tìm kiếm</Link>
-            <Link to="/storages">Kho lưu trữ</Link>
-            <Link to="/create-record">Tạo record</Link>
-          </>
-        )}
-        <Link to="/about">Giới thiệu</Link>
+        <Link to="/" className={isActive('/') ? 'active' : ''}>
+          <Home size={18} />
+          Home
+        </Link>
+        <Link to="/scan" className={isActive('/scan') ? 'active' : ''}>
+          <Scan size={18} />
+          Quét
+        </Link>
+        <Link to="/storages" className={isActive('/storages') ? 'active' : ''}>
+          <Database size={18} />
+          Kho
+        </Link>
+        <Link to="/records" className={isActive('/records') ? 'active' : ''}>
+          <FileText size={18} />
+          Records
+        </Link>
       </div>
 
       <div className="auth">
-        {isAuthenticated ? (
-          <div className="user-menu">
-            <span>Xin chào, {user?.username}</span>
-            <button onClick={handleLogout} className="logout-btn">Đăng xuất</button>
-          </div>
-        ) : (
-          <>
-            <Link to="/login">Đăng nhập</Link>
-            <Link className="register" to="/register">Đăng ký</Link>
-          </>
-        )}
+        <Link to="/login" className={isActive('/login') ? 'active' : ''}>
+          <LogIn size={16} />
+          Login
+        </Link>
+        <Link className={`register ${isActive('/register') ? 'active' : ''}`} to="/register">
+          <UserPlus size={16} />
+          Register
+        </Link>
       </div>
     </nav>
   );

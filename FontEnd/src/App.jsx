@@ -1,5 +1,6 @@
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { Toaster } from "react-hot-toast";
 
 import { Routes, Route } from "react-router-dom";
 
@@ -18,16 +19,16 @@ function App() {
   return (
     <div className="app">
       <Navbar />
-    <div className="page">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+      <div className="page">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
-        {/* Protected Routes */}
-        <Route path="/storages" element={
-          <ProtectedRoute>
+          {/* Protected Routes */}
+          <Route path="/storages" element={
+            <ProtectedRoute>
             <Storage />
           </ProtectedRoute>
         } />
@@ -58,6 +59,30 @@ function App() {
         } />
       </Routes>
       </div>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 4000,
+          style: {
+            background: 'rgba(0, 0, 0, 0.8)',
+            color: '#f3f4f6',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            backdropFilter: 'blur(10px)',
+          },
+          success: {
+            iconTheme: {
+              primary: '#64d5ff',
+              secondary: '#0b0f17',
+            },
+          },
+          error: {
+            iconTheme: {
+              primary: '#ff4757',
+              secondary: '#f3f4f6',
+            },
+          },
+        }}
+      />
     </div>
   );
 }
