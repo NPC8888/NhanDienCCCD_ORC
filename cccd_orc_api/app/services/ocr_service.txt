@@ -1,0 +1,25 @@
+from paddleocr import PaddleOCR
+import cv2
+ocr = PaddleOCR(lang="vi", use_gpu=False)
+
+def read_text(image_path):
+    img = cv2.imread(image_path)
+    img = cv2.resize(img, None, fx=2, fy=2, interpolation=cv2.INTER_CUBIC)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    thresh = cv2.adaptiveThreshold(
+    gray,255,
+    cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+    cv2.THRESH_BINARY,11,2
+)
+    result = ocr.ocr(thresh)
+
+    if not result or result[0] is None:
+        return ""
+
+    text_list = []
+
+    for line in result[0]:
+        text = line[1][0]
+        text_list.append(text)
+
+    return " ".join(text_list)
