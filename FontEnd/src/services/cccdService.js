@@ -148,7 +148,7 @@ export const cccdService = {
         headers.Authorization = `Bearer ${token}`;
       }
 
-      const response = await fetch(`${API_BASE_URL}/record/${recordId}`, {
+      const response = await fetch(`${API_BASE_URL}/records/${recordId}`, {
         method: 'PUT',
         headers,
         body: JSON.stringify(updateData),
@@ -174,8 +174,11 @@ export const cccdService = {
       if (token) {
         headers.Authorization = `Bearer ${token}`;
       }
-
-      const response = await fetch(`${API_BASE_URL}/storages/`, {
+      const user = localStorage.getItem('user');
+      if (user) {
+        headers['X-User-ID'] = JSON.parse(user).id;
+      }
+      const response = await fetch(`${API_BASE_URL}/storages/user/${JSON.parse(user).id}/`, {
         method: 'GET',
         headers,
       });
@@ -297,4 +300,5 @@ export const cccdService = {
       throw error;
     }
   },
+  
 };

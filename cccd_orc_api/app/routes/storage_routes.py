@@ -6,6 +6,25 @@ from app.models.user_model import db
 
 storage_bp = Blueprint("storages", __name__)
 
+@storage_bp.route("/user/test", methods=["GET"])
+def test_user():
+    return "OK"
+
+@storage_bp.route("/user/<int:user_id>/", methods=["GET"])
+@storage_bp.route("/user/<int:user_id>", methods=["GET"])
+def get_user_storages(user_id):
+    print("USER ID:", user_id, type(user_id))
+    """Lấy tất cả kho lưu trữ của một người dùng"""
+    storages = Storage.query.filter_by(user_id=user_id).all()
+    result = []
+    for s in storages:
+        result.append({
+            "id": s.id,
+            "user_id": s.user_id,
+            "name": s.name
+        })
+    return jsonify(result)
+
 @storage_bp.route("/", methods=["GET"])
 def get_storages():
     """Lấy tất cả kho lưu trữ"""

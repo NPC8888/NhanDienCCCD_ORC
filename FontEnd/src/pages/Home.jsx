@@ -38,7 +38,7 @@ function Home() {
           <div className="hero-blob" />
           <div className="hero-blob hero-blob--secondary" />
           <div className="hero-illustration">
-            <Camera size={60} className="hero-icon" />
+            <Camera size={64} className="hero-icon" />
           </div>
         </div>
       </div>

@@ -27,7 +27,7 @@ def get_records(storage_id):
         result.append({
 
             "id": r.id,
-            "cccd_number": r.id_number,
+            "id_number": r.id_number,
             "name": r.name,
             "dob": str(r.dob),
             "gender": r.gender
@@ -95,7 +95,7 @@ def get_record_detail(record_id):
             "id": record.id,
             "storage_id": record.storage_id,
 
-            "cccd_number": record.id_number,
+            "id_number": record.id_number,
             "name": record.name,
             "gender": record.gender,
             "dob": str(record.dob),
@@ -226,37 +226,46 @@ def create_record():
 # ================================
 # UPDATE RECORD
 # ================================
-
 @record_bp.route("/<int:record_id>", methods=["PUT"])
 def update_record(record_id):
-
     record = CCCDRecord.query.get(record_id)
 
-    if not record:
-
+    if record is None:
         return jsonify({"error": "record not found"}), 404
 
-
     data = request.json
+    if not data:
+        return jsonify({"error": "request body is empty"}), 400
 
+    try:
+        ALLOWED_FIELDS = ["id_number" , "name", "dob", "expire_date" , "gender", "nationality", "origin_place", "current_place", "features","issue_date"]
 
-    for key in data:
+        for key in ALLOWED_FIELDS:
+            if key in data:
+                setattr(record, key, data[key])
 
-        if hasattr(record, key):
+        db.session.commit()
 
-            setattr(record, key, data[key])
+        return  ({
+            "message": "record updated",
+            "data": {
+                "id": record.id,
+                "name": record.name,
+                "dob": record.dob,
+                "expire_date": record.expire_date,
+                "id_number": record.id_number,
+                "gender": record.gender,
+                "nationality": record.nationality,
+                "origin_place": record.origin_place,
+                "current_place": record.current_place,
+                "features": record.features,
+                "issue_date": record.issue_date
+            }
+        })
 
-
-    db.session.commit()
-
-
-    return jsonify({
-
-        "message": "record updated"
-
-    })
-
-
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
 # ================================
 # DELETE RECORD
 # ================================

@@ -144,3 +144,67 @@
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(255, 71, 87, 0.4);
 }
+/* Ẩn hamburger ở desktop */
+.menu-toggle {
+  display: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* Mặc định: desktop */
+.mobile-auth {
+  display: none;
+}
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 12px 20px;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .menu {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background: rgba(6, 17, 35, 0.98);
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 0;
+    display: none;
+  }
+
+  .menu.open {
+    display: flex;
+  }
+
+  .menu a {
+    width: 90%;
+    justify-content: center;
+  }
+
+  /* Ẩn auth desktop */
+  .desktop-auth {
+    display: none;
+  }
+
+  /* Auth trong menu */
+  .mobile-auth {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    gap: 12px;
+  }
+
+  .mobile-auth a {
+    justify-content: center;
+  }
+  .username {
+    color: #f3f4f6;
+    font-weight: 500;
+  }
+}

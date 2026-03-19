@@ -216,14 +216,7 @@ function CreateRecord() {
             </div>
 
             <div className="form-group">
-              <label className="checkbox-label">
-                <input
-                  type="checkbox"
-                  checked={formData.fingerprint_detected}
-                  onChange={(e) => handleInputChange("fingerprint_detected", e.target.checked)}
-                />
-                Phát hiện vân tay
-              </label>
+              
             </div>
           </div>
         </div>

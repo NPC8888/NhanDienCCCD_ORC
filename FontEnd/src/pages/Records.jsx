@@ -60,7 +60,7 @@ function Records() {
       if (searchTerm) {
         filtered = filtered.filter(record =>
           record.name && record.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          record.cccd_number && record.cccd_number.includes(searchTerm)
+          record.id_number && record.id_number.includes(searchTerm)
         );
       }
 
@@ -198,7 +198,7 @@ function Records() {
                   <div key={record.id || Math.random()} className="record-item">
                     <div className="record-info">
                       <h3>{record.name || "N/A"}</h3>
-                      <p><strong>Số CCCD:</strong> {record.cccd_number || "N/A"}</p>
+                      <p><strong>Số CCCD:</strong> {record.id_number || "N/A"}</p>
                       <p><strong>Ngày sinh:</strong> {record.dob || "N/A"}</p>
                       <p><strong>Giới tính:</strong> {record.gender || "N/A"}</p>
                     </div>

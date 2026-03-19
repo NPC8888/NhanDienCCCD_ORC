@@ -44,7 +44,7 @@ CREATE TABLE cccd_records (
 
     features TEXT,          -- đặc điểm nhận dạng
 
-    -- dữ liệu AI
+
     qr_text TEXT,
     fingerprint_detected BOOLEAN,
 

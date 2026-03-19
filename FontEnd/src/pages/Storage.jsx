@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { cccdService } from "../services/cccdService";
+import { authService } from "../services/authService";
 import { Database, Plus, Edit, Trash2, Check, X } from "lucide-react";
 import toast from "react-hot-toast";
 import "./Storage.css";
@@ -18,7 +19,7 @@ function Storage() {
   useEffect(() => {
     loadStorages();
   }, []);
-
+  const user = authService.getUser();
   const loadStorages = async () => {
     try {
       setLoading(true);
@@ -36,7 +37,7 @@ function Storage() {
     e.preventDefault();
     try {
       await cccdService.createStorage(formData);
-      setFormData({ name: "", user_id: "" });
+      setFormData({ name: "", user_id: authService.getUser().id });
       setShowCreateForm(false);
       loadStorages();
       toast.success("Tạo kho thành công!");
@@ -114,16 +115,7 @@ function Storage() {
               <input
                 type="text"
                 value={formData.name}
-                onChange={(e) => setFormData({...formData, name: e.target.value})}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>User ID:</label>
-              <input
-                type="number"
-                value={formData.user_id}
-                onChange={(e) => setFormData({...formData, user_id: e.target.value})}
+                onChange={(e) => setFormData({...formData, name: e.target.value, user_id: authService.getUser().id  })}
                 required
               />
             </div>

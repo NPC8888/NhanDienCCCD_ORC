@@ -86,7 +86,7 @@ function RecordDetail() {
                   onChange={(e) => handleInputChange("id_number", e.target.value)}
                 />
               ) : (
-                <span>{record.cccd_number}</span>
+                <span>{record.id_number}</span>
               )}
             </div>
 
