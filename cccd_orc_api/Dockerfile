@@ -33,9 +33,6 @@ COPY requirements.txt .
 # ======================
 RUN pip install --no-cache-dir -r requirements.txt
 
-# ⚠️ Fix torch CPU (nếu dùng YOLO)
-RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
-
 # ======================
 # 7. Copy source code
 # ======================

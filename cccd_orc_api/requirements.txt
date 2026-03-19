@@ -6,6 +6,7 @@ PyMySQL
 python-dotenv
 
 pillow
+torch
 ultralytics
 vietocr
 opencv-python
