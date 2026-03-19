@@ -20,6 +20,13 @@ def create_app():
 
     # enable CORS for all routes (adjust origins as needed)
     CORS(app, resources={r"/api/*": {"origins": "*"}})
+
+    @app.route("/")
+    def home():
+     return {
+        "message": "API CCCD OCR is running",
+        "status": "ok"
+    }
     
     @app.route("/", methods=["GET"])
     def health_check():
