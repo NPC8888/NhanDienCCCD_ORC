@@ -39,7 +39,7 @@ RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/wh
 # ======================
 # 7. Copy source code
 # ======================
-COPY . .
+COPY cccd_orc_api/ .
 
 # ======================
 # 8. Expose port
