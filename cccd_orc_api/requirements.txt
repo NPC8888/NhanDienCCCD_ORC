@@ -15,8 +15,5 @@ pillow
 opencv-python-headless
 numpy
 
-# Thư viện AI (Ép cài bản CPU)
-torch==2.2.1+cpu
-torchvision==0.17.1+cpu
 ultralytics
 vietocr
