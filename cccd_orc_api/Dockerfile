@@ -47,6 +47,4 @@ EXPOSE 8000
 # ======================
 # 9. Run app
 # ======================
-RUN pip install gunicorn
-
 CMD ["gunicorn", "-w", "2", "-b", "0.0.0.0:8000", "main:app"]

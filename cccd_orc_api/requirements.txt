@@ -1,13 +1,20 @@
+# Các thư viện cơ bản
 Flask
 Flask-JWT-Extended
 Flask-SQLAlchemy
 flask-cors
 PyMySQL
 python-dotenv
+gunicorn
 
+# Xử lý ảnh và OCR
 pillow
-torch
-ultralytics
-vietocr
-opencv-python
+opencv-python-headless  # Dùng bản headless để nhẹ hơn và không lỗi thư viện hệ thống
 numpy
+vietocr
+ultralytics
+
+# Chỉ cài Torch bản CPU (Tiết kiệm cực kỳ nhiều dung lượng)
+--extra-index-url https://download.pytorch.org
+torch
+torchvision
