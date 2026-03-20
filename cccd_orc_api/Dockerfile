@@ -23,8 +23,6 @@ RUN apt-get update && apt-get install -y \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
-# install torch CPU
-RUN pip install --no-cache-dir torch==2.2.1 torchvision==0.17.1 --index-url https://download.pytorch.org/whl/cpu
 # ======================
 # 5. Copy requirements trước (cache)
 # ======================

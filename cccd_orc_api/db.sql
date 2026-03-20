@@ -46,7 +46,7 @@ CREATE TABLE cccd_records (
 
 
     qr_text TEXT,
-    fingerprint_detected BOOLEAN,
+    fingerprint_detected TEXT,
 
     -- metadata
     image_path VARCHAR(255),

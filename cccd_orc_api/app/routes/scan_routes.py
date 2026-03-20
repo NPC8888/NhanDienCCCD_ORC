@@ -32,7 +32,7 @@ def process_field_parallel(det):
     """
     field_name = det.get("field")
     crop_path = det.get("crop_path")
-    
+    print(f"--- Đang xử lý Field: {field_name} tại {crop_path} ---") # Thêm dòng này
     if not crop_path or not os.path.exists(crop_path):
         return None
 
@@ -100,7 +100,7 @@ def scan_cccd():
     # 5. XỬ LÝ SONG SONG (ThreadPoolExecutor)
     field_results = {}
     # Sử dụng 4 workers để tối ưu cho chip i5 đời mới
-    with ThreadPoolExecutor(max_workers=4) as executor:
+    with ThreadPoolExecutor(max_workers=1) as executor:
         results = list(executor.map(process_field_parallel, detections))
 
     # Tổng hợp kết quả
