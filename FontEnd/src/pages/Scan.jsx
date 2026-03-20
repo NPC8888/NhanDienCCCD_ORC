@@ -130,6 +130,16 @@ function Scan() {
               value={selectedStorage}
               onChange={(e) => setSelectedStorage(e.target.value)}
               disabled={loading}
+              style={{
+    backgroundColor: '#fff', // Nền trắng
+    color: '#333',           // Chữ đen xám
+    padding: '8px',
+    borderRadius: '4px',
+    border: '1px solid #ccc',
+    width: '100%',
+    cursor: loading ? 'not-allowed' : 'pointer'
+  }}
+              
             >
               <option value="">-- Chọn kho --</option>
               {storages.map((storage) => (
