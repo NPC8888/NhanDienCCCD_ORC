@@ -18,11 +18,14 @@ Hệ thống sử dụng **AI tiên tiến** (YOLOv8 + VietOCR) để tự độ
 - 🔍 **Tìm kiếm Records**: Search theo tên/số CCCD
 - ✏️ **CRUD Records**: Xem chi tiết, chỉnh sửa, tạo thủ công
 - 🔐 **Auth JWT**: Đăng ký/đăng nhập user
-- 💾 **Database**: SQLite (models: User, Storage, Record, FieldRaw, Image)
+- 💾 **Database**: Mysql (models: User, Storage, Record, FieldRaw, Image)
 
 **Demo Online**: [https://npc8888.github.io/NhanDienCCCD_ORC/](https://npc8888.github.io/NhanDienCCCD_ORC/)  
 **Video Demo**: `videodemo.rar`
-
+có thể dùng tài khoảng username: vandiep ,password:diep113 .để test hoặc tự tạo 1 tài khoảng khác để test đầy đủ hơn luồn hoạt động.
+lưu ý
+-nên tạo kho lưu trữ trước khi quét cccd để tránh lỗi kh có kho lúc chọn nơi lưu .
+-có thể dùng các hình trong dataset để test.
 ## 📁 Cấu trúc Project
 
 ```
@@ -127,7 +130,7 @@ Auth: Bearer <token>
 4. **Post-process**: Normalize dates/text → Save DB + crops
 5. **Metrics**: mAP@0.5=0.995, F1=0.99 (từ báo cáo)
 
-**DB Schema** (SQLite):
+**DB Schema** (Mysql):
 - Users → Storages → Records → FieldRaw/Images
 
 ## 📚 Báo cáo & Tài liệu
