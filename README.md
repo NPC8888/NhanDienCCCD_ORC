@@ -24,6 +24,7 @@ Hệ thống sử dụng **AI tiên tiến** (YOLOv8 + VietOCR) để tự độ
 **Video Demo**: `videodemo.rar`
 có thể dùng tài khoảng username: vandiep ,password:diep113 .để test hoặc tự tạo 1 tài khoảng khác để test đầy đủ hơn luồn hoạt động.
 lưu ý
+-dùng ảnh cắt sát CCCD quá có thể lỗi không tìm thấy cccd nên dùng ảnh có background ,nên chup cách ra 1 khoảng ,hãy dùng ảnh tự chụp hoặc ảnh tự nhiên một chút
 -nên tạo kho lưu trữ trước khi quét cccd để tránh lỗi kh có kho lúc chọn nơi lưu .
 -có thể dùng các hình trong dataset để test.
 ## 📁 Cấu trúc Project
